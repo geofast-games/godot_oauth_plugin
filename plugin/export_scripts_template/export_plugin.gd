@@ -32,23 +32,16 @@ class AndroidExportPlugin extends EditorExportPlugin:
 			return PackedStringArray([_plugin_name + "/bin/release/" + _plugin_name + "-release.aar"])
 
 	func _get_android_dependencies(platform, debug):
-		# TODO: Add remote dependices here.
-		if debug:
-			return PackedStringArray([
-				"androidx.credentials:credentials:1.3.0",
-				"androidx.credentials:credentials-play-services-auth:1.3.0",
-				"com.google.android.libraries.identity.googleid:googleid:1.1.1",
-				"org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3",
-				"org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3"
-			])
-		else:
-			return PackedStringArray([
-				"androidx.credentials:credentials:1.3.0",
-				"androidx.credentials:credentials-play-services-auth:1.3.0",
-				"com.google.android.libraries.identity.googleid:googleid:1.1.1",
-				"org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3",
-				"org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3"
-			])
+		# Dependencies matching build.gradle.kts - updated to latest stable versions
+		# https://developer.android.com/identity/sign-in/credential-manager-siwg
+		return PackedStringArray([
+			"androidx.credentials:credentials:1.5.0",
+			"androidx.credentials:credentials-play-services-auth:1.5.0",
+			"com.google.android.libraries.identity.googleid:googleid:1.1.1",
+			"org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3",
+			"org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3",
+			"androidx.lifecycle:lifecycle-runtime-ktx:2.7.0"
+		])
 
 	func _get_name():
 		return _plugin_name

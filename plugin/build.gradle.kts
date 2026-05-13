@@ -13,7 +13,7 @@ val pluginPackageName = "org.godotengine.plugin.android.oauth2"
 
 android {
     namespace = pluginPackageName
-    compileSdk = 34
+    compileSdk = 35
 
     buildFeatures {
         buildConfig = true
@@ -26,6 +26,8 @@ android {
         manifestPlaceholders["godotPluginPackageName"] = pluginPackageName
         buildConfigField("String", "GODOT_PLUGIN_NAME", "\"${pluginName}\"")
         setProperty("archivesBaseName", pluginName)
+
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     compileOptions {
@@ -38,13 +40,24 @@ android {
 }
 
 dependencies {
-    implementation("org.godotengine:godot:4.3.0.stable")
-    // TODO: Additional dependencies should be added to export_plugin.gd as well.
-    implementation("androidx.credentials:credentials:1.3.0")
-    implementation("com.google.android.libraries.identity.googleid:googleid:1.1.0")
+    implementation("org.godotengine:godot:4.6.2.stable")
 
+    // Credential Manager - Updated to latest stable versions per Google documentation
+    // https://developer.android.com/identity/sign-in/credential-manager-siwg
+    implementation("androidx.credentials:credentials:1.5.0")
+    implementation("androidx.credentials:credentials-play-services-auth:1.5.0")  // Required for Play Services compatibility
+    implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
+
+    // Facebook Login SDK
+    // https://developers.facebook.com/docs/facebook-login/android
+    implementation("com.facebook.android:facebook-login:18.0.2")
+
+    // Coroutines for async operations
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+
+    // Lifecycle for proper scope management
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
 }
 
 // BUILD TASKS DEFINITION
